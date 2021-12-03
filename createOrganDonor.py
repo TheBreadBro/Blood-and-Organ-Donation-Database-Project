@@ -31,14 +31,3 @@ def insertOrganDonor(donorid,bloodtype,age,chronicaldiseases,drugusage,tattoodat
         if conn is not None:
             conn.close()
             print('Database connection closed.')
-
-
-def main():
-    insertOrganDonor(1,'A-',32,'None','None','NULL','NONE','NULL',7732023030,'chicago','lung')
-    insertOrganDonor(2,"AB-",23,"None","Alcohol","NULL","NONE","NULL",7732023030,"chicago","lung")
-    insertOrganDonor(3,"O+",55,"None","Smoked","NULL","NONE","NULL",7732023010,"chicago","lung")
-
-if __name__ == '__main__':
-    main()
-
-

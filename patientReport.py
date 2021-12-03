@@ -1,27 +1,24 @@
 import psycopg2
 from tabulate import tabulate
 
-def incomeReport(conn):
+def patientReport(patientID,conn):
     """ Connect to the PostgreSQL database server """
     try:
         cur = conn.cursor()
-        
-        exec = """
-            SELECT h.hospitalID, h.hName, SUM((d.fee+h.hcost)*d.completedOperations) 
-            FROM hospital h
-            INNER JOIN doctor d
-            on h.hospitalID = d.hospitalID
-            GROUP BY h.hospitalID
-            """
-	# execute a statement
-        print('Matched: ')
+
+        exec = exec = """
+            SELECT *
+            FROM patient
+            WHERE patientID = '{pID}'; 
+                            """.format(pID = patientID)
+        print('Patient Information: ')
         cur.execute(exec)
         row = cur.fetchone()
         donors = []
         headers = ['Hospital ID','Hospital Name','Earnings']
         while row is not None:
             currrow = []
-            for i in range(0,3):
+            for i in range(0,8):
                 currrow.append(row[i])
             donors.append(currrow)
             row = cur.fetchone()

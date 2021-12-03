@@ -1,23 +1,10 @@
 import psycopg2
 from tabulate import tabulate
 
-def donorMatchList():
+def donorMatchList(conn):
     """ Connect to the PostgreSQL database server """
-    conn = None
     try:
-
-        # connect to the PostgreSQL server
-        print('Connecting to the PostgreSQL database...')
-        conn = psycopg2.connect(
-            host = "localhost",
-            dbname = "bloodDonation",
-            user = "postgres",
-            password = "password"
-            )
-		
-        # create a cursor
         cur = conn.cursor()
-        
         exec = """
             SELECT p.pname,p.patientid,d.donorID,p.bloodtype,d.bloodtype FROM donor d
             INNER JOIN patient p
@@ -62,17 +49,3 @@ def donorMatchList():
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
-    finally:
-        if conn is not None:
-            conn.close()
-            print('Database connection closed.')
-
-
-def main():
-    donorMatchList()
-
-
-if __name__ == '__main__':
-    main()
-
-
